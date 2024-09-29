@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const checkWinner = (board) => {
   const winConditions = [
@@ -24,6 +25,9 @@ const TicTacToe = () => {
   const [board, setBoard] = useState(Array(9).fill(null));
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [winner, setWinner] = useState(false);
+  // const { text } = useRoutes();
+  const { text } = useParams();
+  console.log(text);
 
   const handleClick = (index) => {
     if (board[index] || winner) return;
@@ -45,6 +49,7 @@ const TicTacToe = () => {
       <button
         className="w-24 h-24 text-3xl font-bold flex items-center justify-center bg-zinc-100 border-2 border-zinc-600 cursor-pointer hover:bg-zinc-300 transition-all"
         onClick={() => handleClick(index)}
+        key={index}
       >
         {board[index]}
       </button>
@@ -57,7 +62,7 @@ const TicTacToe = () => {
 
   return (
     <div className="flex justify-center items-center h-screen bg-zinc-100 flex-col gap-8">
-      <h1 className="text-4xl font-bold ">TicTacToe</h1>
+      <h1 className="text-4xl font-bold capitalize ">TicTacToe - {text}</h1>
       <div className="grid grid-cols-3 gap-2">
         {board.map((_, index) => renderCell(index))}
       </div>
